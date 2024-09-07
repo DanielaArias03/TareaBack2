@@ -9,7 +9,7 @@ import vetsRoutes from "./routes/vets.routes.js";
 
 const app = express();
 app.get("/", (req, res) => {
-  res.send("Prueba del Get");
+  res.send("Prueba del Index");
 });
 
 app.use(cors());
