@@ -19,4 +19,3 @@ const Pets = dbConnection.define("pets", {
 
 Pets.sync();
 export default Pets;
-

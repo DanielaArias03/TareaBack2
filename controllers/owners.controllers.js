@@ -1,7 +1,6 @@
 import Owners from "../models/owners.js";
 import jwt from "jsonwebtoken";
 
-
 // Controlador para obtener un owner por ID
 export const GetOwnerById = async (req, res) => {
   const owners = await Owners.findOne({

@@ -9,6 +9,7 @@ import {
 } from "../controllers/vet.controllers.js";
 import { body } from "express-validator";
 import ValidateDataMiddleware from "../middlewares/validation/ValidateData.middleware.js";
+import authorizateVet from "../Middlewares/vets/authorizateVet.js";
 
 const vetsRoutes = Router();
 
@@ -38,6 +39,6 @@ vetsRoutes.post(
 vetsRoutes.patch("/:id", UpdateVetById);
 
 // Ruta para eliminar un usuario por ID
-vetsRoutes.delete("/:id", DeleteVetById);
+vetsRoutes.delete("/:id", authorizateVet, DeleteVetById);
 
 export default vetsRoutes;

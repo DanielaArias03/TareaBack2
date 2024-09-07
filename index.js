@@ -4,7 +4,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import ownersRoutes from "./routes/owners.routes.js";
 import { dbConnection } from "./config/db.js";
-// import petsRoutes from "./routes/pets.routes.js";
+import petsRoutes from "./routes/pets.routes.js";
 import vetsRoutes from "./routes/vets.routes.js";
 
 const app = express();
@@ -16,8 +16,8 @@ app.use(cors());
 app.use(bodyParser());
 
 app.use("/owners", ownersRoutes);
-// app.use("/pets",petsRoutes);
-app.use("/vets",vetsRoutes)
+app.use("/pets", petsRoutes);
+app.use("/vets", vetsRoutes);
 
 try {
   dbConnection.authenticate();
