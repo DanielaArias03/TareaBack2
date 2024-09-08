@@ -1,5 +1,6 @@
 import Vets from "../models/vets.js";
 import jwt from "jsonwebtoken";
+import bcryptjs from "bcrypt";
 
 // Controlador para obtener todos los pets
 export const GetAllVets = async (req, res) => {
@@ -30,22 +31,34 @@ export const createNewVet = async (req, res) => {
 export const loginVet = async (req, res) => {
   const { namevet, password } = req.body;
 
-  const vet = await Vets.findOne({
-    where: {
-      namevet: namevet,
-      password: password,
-    },
-  });
+  try {
+    // Buscar el veterinario por su nombre
+    const vet = await Vets.findOne({
+      where: {
+        namevet: namevet,
+      },
+    });
 
-  if (!vet) {
-    return res.status(401).json({ message: "Invalid credentials" });
+    // Si no se encuentra el veterinario
+    if (!vet) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    // Verificar la contraseña usando bcrypt
+    const Match = await bcryptjs.compare(password, vet.password);
+    if (!Match) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    // Generar el token si las credenciales son válidas
+    const token = jwt.sign({ vetId: vet.id }, "TokenVet", {
+      expiresIn: 60 * 60, // 1 hora
+    });
+
+    res.json({ token: token });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
   }
-
-  const token = jwt.sign({ vetId: vet.id }, "TokenVet", {
-    expiresIn: 60 * 60,
-  });
-
-  res.json({ token: token });
 };
 
 // Controlador para actualizar un pet
