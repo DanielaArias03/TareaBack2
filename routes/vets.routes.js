@@ -7,9 +7,11 @@ import {
   createNewVet,
   loginVet,
 } from "../controllers/vet.controllers.js";
-import { body } from "express-validator";
+import { body,param } from "express-validator";
 import ValidateDataMiddleware from "../middlewares/validation/ValidateData.middleware.js";
 import authorizateVet from "../Middlewares/vets/authorizateVet.js";
+import vetExists from "../Middlewares/vets/vetExist.js";
+import checkVetById from "../Middlewares/vets/checkVetById.js";
 
 const vetsRoutes = Router();
 
@@ -17,10 +19,25 @@ const vetsRoutes = Router();
 vetsRoutes.get("/", GetAllVets);
 
 // Ruta para obtener un usuario por ID
-vetsRoutes.get("/:id", GetVetById);
+vetsRoutes.get("/:id",[
+  param('id', 'id is required').notEmpty(),
+  body('id', "id can't be modified").isEmpty(),
+  body("namevet", "namevet not valid").exists().isString(),
+  body("password", "password invalid").exists().isString().isLength({
+    min: 1,
+    max: 10,
+  }),
+    ValidateDataMiddleware
+], GetVetById);
 
 // Ruta para login
-vetsRoutes.post("/login", loginVet);
+vetsRoutes.post("/login",
+  body("namevet", "namevet not valid").exists().isString(),
+  body("password", "password invalid").exists().isString().isLength({
+    min: 1,
+    max: 10,
+  }),
+  ValidateDataMiddleware, loginVet);
 
 vetsRoutes.post(
   "/",
@@ -36,9 +53,28 @@ vetsRoutes.post(
 );
 
 // Ruta para modificar un usuario por ID
-vetsRoutes.patch("/:id", [authorizateVet], UpdateVetById);
+vetsRoutes.patch("/:id", [vetExists,checkVetById,authorizateVet,
+  param('id', 'id is required').notEmpty(),
+  body('id', "id can't be modified").isEmpty(),
+  body("namevet", "namevet not valid").exists().isString(),
+  body("password", "password invalid").exists().isString().isLength({
+    min: 1,
+    max: 10,
+  }),
+    ValidateDataMiddleware
+], UpdateVetById);
 
 // Ruta para eliminar un usuario por ID
-vetsRoutes.delete("/:id", [authorizateVet], DeleteVetById);
+vetsRoutes.delete("/:id", [vetExists,checkVetById,
+  authorizateVet, 
+  param('id', 'id is required').notEmpty(),
+  body('id', "id can't be modified").isEmpty(),
+  body("namevet", "namevet not valid").exists().isString(),
+  body("password", "password invalid").exists().isString().isLength({
+    min: 1,
+    max: 10,
+  }),
+    ValidateDataMiddleware
+  ], DeleteVetById);
 
 export default vetsRoutes;

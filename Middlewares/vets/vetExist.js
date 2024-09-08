@@ -1,4 +1,4 @@
-import Vets from "../../models/vets";
+import Vets from "../../models/vets.js";
 
 const vetExists = async (req, res, next) => {
   const vet = await Vets.findOne({
