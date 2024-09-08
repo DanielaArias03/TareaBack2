@@ -18,7 +18,7 @@ const petsRoutes = Router();
 petsRoutes.get("/", GetAllPets);
 
 // Ruta para obtener un usuario por ID
-petsRoutes.get("/:id", [checkPetById, petExists,
+petsRoutes.get("/:id", [checkPetById, petExists,authorizateVet,
   param('id', 'id is required').notEmpty(),
   body('id', "id can't be modified").isEmpty(),
   body("namepet", "namepet not valid").exists().isString(),
@@ -34,7 +34,7 @@ petsRoutes.get("/:id", [checkPetById, petExists,
 // Ruta para crear un usuario
 petsRoutes.post(
   "/",
-  [
+  [ authorizateVet,
     body("namepet", "namepet not valid").exists().isString(),
     body("ownerpet", "ownerpet not valid").exists().isString(),
     body("typePet", "typePet invalid").exists().isString().isLength({
