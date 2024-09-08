@@ -25,7 +25,7 @@ vetsRoutes.post("/login", loginVet);
 vetsRoutes.post(
   "/",
   [
-    body("nameowner", "nameowner not valid").exists().isString(),
+    body("namevet", "namevet not valid").exists().isString(),
     body("password", "password invalid").exists().isString().isLength({
       min: 1,
       max: 10,
@@ -36,9 +36,9 @@ vetsRoutes.post(
 );
 
 // Ruta para modificar un usuario por ID
-vetsRoutes.patch("/:id", UpdateVetById);
+vetsRoutes.patch("/:id", [authorizateVet], UpdateVetById);
 
 // Ruta para eliminar un usuario por ID
-vetsRoutes.delete("/:id", authorizateVet, DeleteVetById);
+vetsRoutes.delete("/:id", [authorizateVet], DeleteVetById);
 
 export default vetsRoutes;

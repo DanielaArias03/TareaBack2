@@ -28,11 +28,11 @@ export const createNewVet = async (req, res) => {
 
 // Controlador para autorización
 export const loginVet = async (req, res) => {
-  const { nameowner, password } = req.body;
+  const { namevet, password } = req.body;
 
   const vet = await Vets.findOne({
     where: {
-      nameowner: nameowner,
+      namevet: namevet,
       password: password,
     },
   });
@@ -41,7 +41,7 @@ export const loginVet = async (req, res) => {
     return res.status(401).json({ message: "Invalid credentials" });
   }
 
-  const token = jwt.sign({ ownerId: vet.id }, "TareaBackend", {
+  const token = jwt.sign({ vetId: vet.id }, "TokenVet", {
     expiresIn: 60 * 60,
   });
 

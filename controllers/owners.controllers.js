@@ -34,7 +34,7 @@ export const login = async (req, res) => {
     return res.status(401).json({ message: "Invalid credentials" });
   }
 
-  const token = jwt.sign({ ownerId: owner.id }, "TareaBackend", {
+  const token = jwt.sign({ ownerId: owner.id }, "TokenOwner", {
     expiresIn: 60 * 60,
   });
 

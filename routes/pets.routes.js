@@ -27,7 +27,7 @@ petsRoutes.post(
   [
     body("namepet", "namepet not valid").exists().isString(),
     body("ownerpet", "ownerpet not valid").exists().isString(),
-    body("cedpet", "cedpet invalid").exists().isString().isLength({
+    body("typePet", "typePet invalid").exists().isString().isLength({
       min: 1,
       max: 5,
     }),
@@ -37,14 +37,13 @@ petsRoutes.post(
 );
 
 // Ruta para modificar un usuario por ID
-petsRoutes.patch("/:id", [checkPetById, petExists], UpdatePetById);
+petsRoutes.patch("/:id", [checkPetById,petExists,authorizateVet], UpdatePetById);
 
 // Ruta para eliminar un usuario por ID
 petsRoutes.delete(
   "/:id",
-  [checkPetById, petExists, authorizateVet],
+  [checkPetById,petExists, authorizateVet],
   DeletePetById
 );
-// [checkById, petExists]
 
 export default petsRoutes;

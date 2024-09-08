@@ -9,6 +9,8 @@ import {
 import ValidateDataMiddleware from "../middlewares/validation/ValidateData.middleware.js";
 import { body } from "express-validator";
 import authorizateOwner from "../Middlewares/owners/authorizateOwner.js";
+import checkOwnerById from "../Middlewares/owners/checkOwnerById.js";
+import ownerExists from "../Middlewares/owners/ownerExist.js";
 
 const ownersRoutes = Router();
 
@@ -33,9 +35,9 @@ ownersRoutes.post(
 ownersRoutes.post("/login", login);
 
 // Ruta para modificar un usuario por ID
-ownersRoutes.patch("/:id", UpdateOwnerById);
+ownersRoutes.patch("/:id",[ownerExists,checkOwnerById,authorizateOwner], UpdateOwnerById);
 
 // Ruta para eliminar un usuario por ID
-ownersRoutes.delete("/:id", authorizateOwner, DeleteOwnerById);
+ownersRoutes.delete("/:id", [ownerExists,checkOwnerById,authorizateOwner], DeleteOwnerById);
 
 export default ownersRoutes;

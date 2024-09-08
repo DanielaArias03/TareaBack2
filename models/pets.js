@@ -13,7 +13,6 @@ const Pets = dbConnection.define("pets", {
   typePet: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
   },
 });
 
