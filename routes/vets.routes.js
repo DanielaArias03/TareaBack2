@@ -8,7 +8,7 @@ import {
   loginVet,
 } from "../controllers/vet.controllers.js";
 import { body,param } from "express-validator";
-import ValidateDataMiddleware from "../middlewares/validation/ValidateData.middleware.js";
+import ValidateDataMiddleware from "../Middlewares/validation/ValidateData.middleware.js";
 import authorizateVet from "../Middlewares/vets/authorizateVet.js";
 import vetExists from "../Middlewares/vets/vetExist.js";
 import checkVetById from "../Middlewares/vets/checkVetById.js";

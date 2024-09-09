@@ -6,7 +6,7 @@ import {
   UpdatePetById,
   createNewPet,
 } from "../controllers/pets.controllers.js";
-import ValidateDataMiddleware from "../middlewares/validation/ValidateData.middleware.js";
+import ValidateDataMiddleware from "../Middlewares/validation/ValidateData.middleware.js";
 import checkPetById from "../Middlewares/pets/checkId.js";
 import petExists from "../Middlewares/pets/petExist.js";
 import authorizateVet from "../Middlewares/vets/authorizateVet.js";

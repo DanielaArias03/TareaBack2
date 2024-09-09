@@ -1,6 +1,6 @@
 import Vets from "../models/vets.js";
 import jwt from "jsonwebtoken";
-import bcryptjs from "bcrypt";
+import bcryptjs from "bcryptjs";
 
 // Controlador para obtener todos los pets
 export const GetAllVets = async (req, res) => {

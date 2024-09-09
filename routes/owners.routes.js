@@ -6,11 +6,11 @@ import {
   createNewOwner,
   login,
 } from "../controllers/owners.controllers.js";
-import ValidateDataMiddleware from "../middlewares/validation/ValidateData.middleware.js";
 import { body, param } from "express-validator";
 import authorizateOwner from "../Middlewares/owners/authorizateOwner.js";
 import checkOwnerById from "../Middlewares/owners/checkOwnerById.js";
 import ownerExists from "../Middlewares/owners/ownerExist.js";
+import ValidateDataMiddleware from "../Middlewares/validation/ValidateData.middleware.js";
 
 const ownersRoutes = Router();
 
